@@ -9,7 +9,11 @@
       :price="item.goods_price"
       :state="item.goods_state"
       :quantity="item.goods_count"
-      @state-change="getNewState"></Goods>
+      @state-change="getNewState">
+        <Counter 
+          :count="item.goods_count"
+          @count-change="goodsCountChange(item,$event)"></Counter>
+      </Goods>
     <Footer :fullChecked="fullState"
       :totalAmount="totalAmount"
       :totalCount="totalCount"
@@ -23,6 +27,7 @@ import bus from '@/components/eventBus.js'
 import Header from '@/components/Header/Header.vue'
 import Goods from '@/components/Goods/Goods.vue'
 import Footer from '@/components/Footer/Footer.vue'
+import Counter from '@/components/Counter/Counter.vue'
 
 export default {
   data(){
@@ -53,7 +58,8 @@ export default {
   components:{
     Header,
     Goods,
-    Footer
+    Footer,
+    Counter
   },
   methods:{
     //初始化购物车列表
@@ -80,6 +86,11 @@ export default {
       this.list.forEach(element => {
         element.goods_state = e;
       });
+    },
+    //商品数量变化
+    goodsCountChange(item,e){
+      console.log('goodsCountChange', item, e);
+      item.goods_count=e.val
     }
   },
   created(){

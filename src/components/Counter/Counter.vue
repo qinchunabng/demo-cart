@@ -26,19 +26,29 @@ export default {
   methods:{
     //增加商品数量
     add(){
-      bus.$emit('share',{
+      //使用slot改写后不需要
+      // bus.$emit('share',{
+      //   id: this.id,
+      //   count: this.count + 1
+      // });    
+      this.$emit('count-change',{
         id: this.id,
-        count: this.count + 1
-      });    
+        val: this.count + 1
+      });
     },
     //减少商品数量
     sub(){
       if(this.count - 1 < 1){
         return
       }
-      bus.$emit('share', {
+      //使用slot改写后不需要
+      // bus.$emit('share', {
+      //   id: this.id,
+      //   count: this.count - 1
+      // });
+      this.$emit('count-change',{
         id: this.id,
-        count: this.count - 1
+        val: this.count - 1
       });
     }
   }
